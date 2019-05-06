@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Weight Clicker</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<!-- This holds the image that will be clicked -->
+		<div id="main-div">
+			<img src="bench-rest.png" id="bench-img" name="rest">
+		</div>
+		<!-- Rep Count is displayed here -->
+		<h1 id="RepCount">Reps: 0</h1>
+		<!-- Displays the current rate for auto repping -->
+		<h3 id="RepRate">Rate: 0.05/sec</h3>
+		<!-- Upgrades are show here -->
+		<div class="upgradesContainer">
+			<table>
+				<tr>
+					<td><button disabled="true" id="HighProteinMealsBttn" onclick="addUpgrade(0)">Buy</button></td>
+					<td id="HighProteinMealsPrice">Price: 15 Reps</td>
+					<td>High Protein Meals</td>
+					<td id="HighProteinMeals">: 0</td>
+				</tr>
+				<tr>
+					<td><button disabled="true" id="SteroidsBttn" onclick="addUpgrade(1)">Buy</button></td>
+					<td id="SteroidsPrice">Price: 75 Reps</td>
+					<td>Steroids</td>
+					<td id="Steroids">: 0</td>
+				</tr>
+				<tr>
+					<td><button disabled="true" id="PersonalTrainersBttn" onclick="addUpgrade(2)">Buy</button></td>
+					<td id="PersonalTrainersPrice">Price: 200 Reps</td>
+					<td>Personal Trainers</td>
+					<td id="PersonalTrainers">: 0</td>
+				</tr>
+				<tr>
+					<td><button disabled="true" id="SponsorsBttn" onclick="addUpgrade(3)">Buy</button></td>
+					<td id="SponsorsPrice">Price: 500 Reps</td>
+					<td>Sponsorhips</td>
+					<td id="Sponsors">: 0</td>
+				</tr>
+				<tr>
+					<td><button disabled="true" id="AnchorArmsBttn" onclick="addUpgrade(4)">Buy</button></td>
+					<td id="AnchorArmsPrice">Price: 1000 Reps</td>
+					<td>Anchor Arms</td>
+					<td id="AnchorArms">: 0</td>
+				</tr>
+			</table>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+body{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-family: Arial;
+}
+
+#main-div{
+	margin: auto;
+	border: 1px solid black;
+	
+}
+
+#bench-img{
+	width: 400px;
+	height: auto;
+}
+
+.upgradesContainer li {
+	list-style-type: none;
+	text-align: left;
+	border: 1px solid black;
+	margin-bottom: 10px;
+	max-width: 200px;
+	padding: 5px;
+}
+
+.upgradesContainer button{
+	width: 100px;
+	height: 40px;
+	color: White;
+	background-color: grey;
+}
+
+table{
+	margin: auto;
+	width: 60%;
+	min-height: 300px;
+	font-size: 30px;
+}
