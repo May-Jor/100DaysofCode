@@ -1,8 +1,25 @@
+//Decided to use an object here to keep track of stats
+var Stats = {
+	reps: 0,
+	speed: .1,
+};
+
+//Upgrades
+var Upgrades = {
+	HPM: ["HighProteinMeals", 0, 15],
+	Steroids: ["Steroids", 0, 75],
+	PT: ["PersonalTrainers", 0, 125],
+	Sponsor: ["Sponsors", 0, 200],
+	AA: ["AnchorArms", 0, 500],
+};
+
 //Grab all DOM elements we need
 var RepCount = document.getElementById("RepCount");
 var bench = document.getElementById("bench-img");
 
-//Execute this function when the image is clicked
+//----------------
+// EVENT HANDLING
+//----------------
 bench.addEventListener("click", function(e){
 	//If bench is at rest, change image to etended bench, change name
 	if(bench.name == "rest"){
@@ -23,22 +40,27 @@ bench.addEventListener("click", function(e){
 	checkBttn();
 });
 
-//Decided to use an object here to keep track of stats
-var Stats = {
-	reps: 0,
-	speed: .1,
-};
-
-//Upgrades
-var Upgrades = {
-	HPM: ["HighProteinMeals", 0, 15],
-	Steroids: ["Steroids", 0, 75],
-	PT: ["PersonalTrainers", 0, 125],
-	Sponsor: ["Sponsors", 0, 200],
-	AA: ["AnchorArms", 0, 250],
-};
-
-//fucntion to help buying Upgrades
+//Function to handle buying Upgrades
+function addUpgrade(i){
+	switch(i){
+		case 0:
+			addU_help(Upgrades.HPM, 0.02);
+		break;
+		case 1:
+			addU_help(Upgrades.Steroids, 0.10);
+		break;
+		case 2:
+			addU_help(Upgrades.PT, 0.2);
+		break;
+		case 3:
+			addU_help(Upgrades.Sponsor, 0.5);
+		break;
+		case 4:
+			addU_help(Upgrades.AA, 1);
+		break;
+	}
+}
+//Helper function to addUpgrades()
 function addU_help(u, rate){
 	//add stats and change related DOM
 	var count = ++u[1];
@@ -58,28 +80,6 @@ function addU_help(u, rate){
 	document.getElementById(u[0]+"Price").innerHTML = "Price: " + u[2] + " Reps";
 	checkBttn();
 	updateClock();
-
-}
-
-//function to handle buying Upgrades
-function addUpgrade(i){
-	switch(i){
-		case 0:
-			addU_help(Upgrades.HPM, 0.01);
-		break;
-		case 1:
-			addU_help(Upgrades.Steroids, 0.05);
-		break;
-		case 2:
-			addU_help(Upgrades.PT, 0.1);
-		break;
-		case 3:
-			addU_help(Upgrades.Sponsor, 0.25);
-		break;
-		case 4:
-			addU_help(Upgrades.AA, 0.5);
-		break;
-	}
 }
 
 
@@ -95,6 +95,7 @@ function deBttn(u){
 		bttn.style.backgroundColor = "green";
 	}
 }
+//Checks all upgrades for deBttn
 function checkBttn(){
 	//check prices of buttons, disable accordingly
 	deBttn(Upgrades.HPM);
@@ -104,7 +105,10 @@ function checkBttn(){
 	deBttn(Upgrades.AA);
 }
 
-//game clock
+
+//-----------
+// GAME CLOCK
+//-----------
 var Clock = setInterval(function(){
 	checkBttn();
 	bench.click();
@@ -115,9 +119,5 @@ function updateClock(){
 	clearInterval(Clock);
 
 	//reset with new speed
-	Clock = setInterval(function(){
-
-		bench.click();
-
-	}, 1000/Stats.speed);
+	Clock = setInterval(function(){ checkBttn(); bench.click() }, 1000/Stats.speed);
 }
