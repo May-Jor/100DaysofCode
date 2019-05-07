@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<body>
+	<canvas width="500px" height="500px" id="canvas" style="border: 1px solid black"></canvas>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var c = canvas.getContext('2d');
+
+		var player = {
+			speed: 10,
+			airTime: 1,
+			dir: 'none',
+			x: 200,
+			y: 100,
+			gravAccel: 1,
+			draw: function(){
+				c.fillStyle = "red";
+				c.fillRect(this.x-5, this.y, 10, 30);
+			},
+			move: function(){
+				switch(this.dir){
+					case "left": 
+						this.x-=this.speed;
+					break;
+					case "right": 
+						this.x+=this.speed;
+					break;
+					case "up": 
+						this.y-=this.speed*2;
+						this.
+					break;
+					case "down":
+						var test = true;
+						var imgd = c.getImageData(this.x-5, this.y+30, 10,2);
+						var pix = imgd.data;
+						for (var i = 0, n = pix.length; i < n; i += 4) {
+						    if(pix[i+3] == 255){
+								test = false;
+								this.dir = "none";
+							}
+						}
+						if(test){
+							this.y += 1*this.gravAccel;
+							(this.gravAccel >= 5) ? this.gravAccel = 5 : this.gravAccel *= 1.05;
+							
+						}
+					break;
+					default:
+						//do nothing
+					break;
+				}
+			}
+		}
+		document.addEventListener("keydown", function(event){
+			console.log(event.keyCode);
+			switch(event.keyCode){
+					case 38: 
+						player.dir = "up";
+					break;
+					case 39: 
+						player.dir = "right";
+					break;
+					case 37:
+						player.dir = "left";
+					break;
+			}
+		});
+		var blocks = [];
+		var mouseClicked = false;
+		document.addEventListener("mousemove", function(event){
+			
+			if(mouseClicked){
+				console.log("draw");
+				blocks.push([event.clientX, event.clientY]);
+			}
+
+		});
+		document.addEventListener("mousedown", function(event){
+			mouseClicked = true;
+		});
+		document.addEventListener("mouseup", function(event){
+			mouseClicked = false;
+		});
+		document.addEventListener("keyup", function(){
+			console.log('letGO');
+						var imgd = c.getImageData(player.x+5, player.y+31, 1,1);
+						console.log(imgd);
+						if(imgd.data[3] == 255){
+							player.dir = "none";
+						}
+						else{
+							player.dir="down";
+						}
+			
+		});
+		function detectOffMap(object){
+			if(object.y > canvas.height){
+				object.x = 200;
+				object.y = 100;
+			}
+		}
+		function draw(){
+			c.clearRect(0,0,500,500);
+			c.fillStyle = "black";
+			c.fillRect(150,130,100,40);
+			for(var i = 0; i < blocks.length; i++){
+				c.fillRect(blocks[i][0] - 5, blocks[i][1] - 5, 10, 10);
+			}
+			player.draw();
+		}
+		var gameLoop = setInterval(function(){
+			draw();
+			player.move();
+			detectOffMap(player);
+		}, 1000/60);
+
+	</script>
+	</body>
+</html>
